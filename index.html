@@ -1,109 +1,142 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<title>İzmir Gün Batımı Seçici</title>
-<style>
-body {
-  font-family: Arial;
-  text-align: center;
-  background: linear-gradient(to right, orange, pink);
-}
-.container {
-  margin-top: 50px;
-}
-select, button {
-  padding: 10px;
-  margin: 10px;
-}
-#result {
-  margin-top: 20px;
-  font-size: 20px;
-  font-weight: bold;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İzmir Gün Batımı Seçici</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 90%;
+        }
+        h1 { color: #ff6b6b; font-size: 24px; }
+        select, button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+        button {
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        button:hover { background-color: #ee5253; }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #fef0f0;
+            color: #333;
+            font-weight: bold;
+            min-height: 50px;
+        }
+    </style>
 </head>
 <body>
 
 <div class="container">
-<h1>🌅 Gün Batımını Nerede İzlemelisin?</h1>
+    <h1>🌅 Sunsetify İzmir</h1>
+    <p>Senin için en iyi noktayı bulalım...</p>
 
-<select id="budget">
-<option value="">Bütçe</option>
-<option>düşük</option>
-<option>orta</option>
-<option>yüksek</option>
-</select>
+    <!-- Karar Noktaları (Decision Points) -->
+    <select id="budget">
+        <option value="düşük">Düşük Bütçe (Ücretsiz)</option>
+        <option value="orta">Orta Bütçe (Kafe/Çay)</option>
+        <option value="yüksek">Yüksek Bütçe (Restoran)</option>
+    </select>
 
-<select id="transport">
-<option value="">Ulaşım</option>
-<option>yürüyüş</option>
-<option>toplu</option>
-<option>araba</option>
-</select>
+    <select id="transport">
+        <option value="yürüyüş">Yürüyerek</option>
+        <option value="toplu">Toplu Taşıma</option>
+        <option value="araba">Şahsi Araç</option>
+    </select>
 
-<select id="crowd">
-<option value="">Kalabalık toleransı</option>
-<option>düşük</option>
-<option>orta</option>
-<option>yüksek</option>
-</select>
+    <select id="crowd">
+        <option value="düşük">Sakinlik İstiyorum</option>
+        <option value="orta">Biraz Hareket Olsun</option>
+        <option value="yüksek">Cıvıl Cıvıl Olsun</option>
+    </select>
 
-<select id="view">
-<option value="">Manzara</option>
-<option>deniz</option>
-<option>şehir</option>
-<option>doğa</option>
-</select>
+    <select id="view">
+        <option value="deniz">Deniz Manzarası</option>
+        <option value="şehir">Şehir Panoraması</option>
+        <option value="doğa">Doğa İçinde</option>
+    </select>
 
-<select id="time">
-<option value="">Süre</option>
-<option>kısa</option>
-<option>uzun</option>
-</select>
+    <select id="time">
+        <option value="kısa">Vaktim Kısıtlı</option>
+        <option value="uzun">Uzun Uzun İzleyeceğim</option>
+    </select>
 
-<br>
-<button onclick="recommend()">Öneri Al</button>
+    <button onclick="recommend()">Önerimi Göster</button>
 
-<div id="result"></div>
+    <div id="result">Seçimlerini yap ve butona bas!</div>
 </div>
 
 <script>
 function recommend() {
-  let B = document.getElementById("budget").value;
-  let U = document.getElementById("transport").value;
-  let K = document.getElementById("crowd").value;
-  let M = document.getElementById("view").value;
-  let S = document.getElementById("time").value;
+    // Değişken Tanımları (Variable Definitions)
+    let B = document.getElementById("budget").value;
+    let U = document.getElementById("transport").value;
+    let K = document.getElementById("crowd").value;
+    let M = document.getElementById("view").value;
+    let S = document.getElementById("time").value;
 
-  let result = "Uygun öneri bulunamadı.";
+    let res = "";
 
-  if (B=="düşük" && U=="yürüyüş" && K=="düşük") {
-    result = "Karşıyaka Sahil";
-  }
-  else if (B=="orta" && U=="toplu" && M=="şehir") {
-    result = "Asansör";
-  }
-  else if (B=="yüksek" && U=="araba" && M=="doğa") {
-    result = "Sasalı";
-  }
-  else if (K=="yüksek" && M=="deniz" && S=="uzun") {
-    result = "İnciraltı";
-  }
-  else if (U=="yürüyüş" && M=="şehir" && S=="kısa") {
-    result = "Kordon";
-  }
-  else if (B=="orta" && K=="düşük" && M=="deniz") {
-    result = "Bostanlı";
-  }
-  else if (U=="toplu" && S=="uzun" && M=="doğa") {
-    result = "Foça";
-  }
-  else if (B=="düşük" && K=="yüksek" && M=="şehir") {
-    result = "Konak Meydanı";
-  }
+    // MANTIK MATRİSİ (Logic Matrix - 8 Strings)
+    // Video Essay'de bu kısmı 'If/Else' blokları olarak açıklayacaksın.
 
-  document.getElementById("result").innerText = "Önerilen yer: " + result;
+    if (B=="düşük" && U=="yürüyüş" && K=="düşük") {
+        res = "📍 Karşıyaka Mavişehir Sahil: Sakin, ücretsiz ve huzurlu bir yürüyüş yolu.";
+    } 
+    else if (B=="orta" && U=="toplu" && M=="şehir") {
+        res = "📍 Tarihi Asansör: Şehri yukarıdan izlemek için harika bir durak.";
+    }
+    else if (B=="yüksek" && U=="araba" && M=="doğa") {
+        res = "📍 Urla Bağ Yolu: Lüks bir akşam yemeği eşliğinde doğada gün batımı.";
+    }
+    else if (K=="yüksek" && M=="deniz" && S=="uzun") {
+        res = "📍 İnciraltı Sahili: Kalabalıkla iç içe, deniz kenarında uzun vakit geçirmelik.";
+    }
+    else if (U=="yürüyüş" && M=="şehir" && S=="kısa") {
+        res = "📍 Alsancak Kordon: Çimlerde hızlıca günü batırmak için en merkezi yer.";
+    }
+    else if (B=="orta" && K=="düşük" && M=="deniz") {
+        res = "📍 Bostanlı Gün Batımı Terası: Modern mimari, deniz kokusu ve huzur.";
+    }
+    else if (U=="toplu" && S=="uzun" && M=="doğa") {
+        res = "📍 İnciraltı Kent Ormanı: Şehirden kaçıp doğaya sığınmak isteyenlere.";
+    }
+    else if (B=="düşük" && K=="yüksek" && M=="şehir") {
+        res = "📍 Konak Meydanı / Saat Kulesi: İzmir'in kalbinde, hareketli bir akşam.";
+    }
+    else {
+        res = "📍 Pasaport İskelesi: Senin için her zaman güzel bir seçenek!";
+    }
+
+    // Sonucu ekrana yazdırıyoruz
+    document.getElementById("result").innerText = res;
 }
 </script>
 
